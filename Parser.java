@@ -19,6 +19,7 @@ public class Parser
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 System.out.println("NEW-LINE");
+                System.out.println(data);
                 Interpreter.interpret(data);
             }
             scanner.close();
