@@ -1,2 +1,2 @@
-the variable test is equal to the string wowee this is a test
+the variable test is equal to the float input "this is a test"
 print the variable test

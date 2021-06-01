@@ -5,6 +5,7 @@ import java.util.Scanner;
 /*
 To do
 check types of values
+error handle type when setting from input(auto converts to string)
 */
 
 public class Parser

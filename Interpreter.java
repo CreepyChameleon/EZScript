@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Interpreter {
     public boolean looping = false;
@@ -8,14 +9,17 @@ public class Interpreter {
     // globalVariables.get(a);
 
     public static int interpret(String data){
+        Scanner input = new Scanner(System.in);
         //if a comment
         if(data.startsWith("//")){
             System.out.println("comment");
+            input.close();
             return 0;
         }
         //if an empty line
         if(data.equals("")){
             System.out.println("EMPTY");
+            input.close();
             return 0;
         }
         String[] sW = data.split(" "); //split sentence into array of words
@@ -32,26 +36,81 @@ public class Interpreter {
         if(scriptWords.get(0).toLowerCase().equals("the") && scriptWords.get(1).toLowerCase().equals("variable")){
             //if setting a variable
             if(scriptWords.get(3).toLowerCase().equals("is") && scriptWords.get(4).toLowerCase().equals("equal") && scriptWords.get(5).toLowerCase().equals("to")){
-                System.out.println("SETTING VAR");
-                //if an input
-
                 //if a random
 
                 //if a String
                 if(scriptWords.get(7).toLowerCase().equals("string")){
-                    String vName = scriptWords.get(2);
-                    String vType = "string";
-                    for(int i=0;i<8;i++){
-                        scriptWords.remove(0);
+                    if(scriptWords.get(8).toLowerCase().equals("input")){
+                        String vName = scriptWords.get(2);
+                        String vType = "string";
+                        for(int i=0;i<9;i++){
+                            scriptWords.remove(0);
+                        }
+                        System.out.println(EZFunctions.BuildString(scriptWords));
+                        String inp = input.nextLine();
+                        setVar(vName, vType, inp);
                     }
-                    String s = EZFunctions.BuildString(scriptWords);
-                    setVar(vName, vType, s);
+                    else{
+                        String vName = scriptWords.get(2);
+                        String vType = "string";
+                        for(int i=0;i<8;i++){
+                            scriptWords.remove(0);
+                        }
+                        String s = EZFunctions.BuildString(scriptWords);
+                        setVar(vName, vType, s);
+                    }
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("integer")){
+                    if(scriptWords.get(8).toLowerCase().equals("input")){
+                        String vName = scriptWords.get(2);
+                        String vType = "integer";
+                        for(int i=0;i<9;i++){
+                            scriptWords.remove(0);
+                        }
+                        System.out.println(EZFunctions.BuildString(scriptWords));
+                        int inp = input.nextInt();
+                        setVar(vName, vType, String.valueOf(inp));
+                    }
+                    else{
+                        setVar(scriptWords.get(2), scriptWords.get(7), scriptWords.get(8));
+                    }
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("float")){
+                    if(scriptWords.get(8).toLowerCase().equals("input")){
+                        String vName = scriptWords.get(2);
+                        String vType = "float";
+                        for(int i=0;i<9;i++){
+                            scriptWords.remove(0);
+                        }
+                        System.out.println(EZFunctions.BuildString(scriptWords));
+                        float inp = input.nextFloat();
+                        setVar(vName, vType, String.valueOf(inp));
+                    }
+                    else{
+                        setVar(scriptWords.get(2), scriptWords.get(7), scriptWords.get(8));
+                    }
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("boolean")){
+                    if(scriptWords.get(8).toLowerCase().equals("input")){
+                        String vName = scriptWords.get(2);
+                        String vType = "boolean";
+                        for(int i=0;i<9;i++){
+                            scriptWords.remove(0);
+                        }
+                        System.out.println(EZFunctions.BuildString(scriptWords));
+                        boolean inp = input.nextBoolean();
+                        setVar(vName, vType, String.valueOf(inp));
+                    }
+                    else{
+                        setVar(scriptWords.get(2), scriptWords.get(7), scriptWords.get(8));
+                    }
                 }
             }
+            input.close();
+            return 1;
         }
         //if a print function
-        else if(scriptWords.get(0).toLowerCase().equals("print")){
-            System.out.println("PRINT");
+        if(scriptWords.get(0).toLowerCase().equals("print")){
             if(scriptWords.get(1).toLowerCase().equals("the") && scriptWords.get(2).toLowerCase().equals("variable")){
                 //if a string
                 if(getVar(scriptWords.get(3))[0].equals("string")){
@@ -72,10 +131,12 @@ public class Interpreter {
             }
         }
 
+        input.close();
         return 1;
     }
 
     public static void setVar(String vName, String vType, String s){
+        //check vType against acceptable types and return error if not
         String[] arr = {vType, s};
         globalVariables.put(vName, arr);
     }
