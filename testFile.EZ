@@ -1,2 +1,2 @@
-the variable test is equal to the float input "this is a test"
+the variable test is equal to the random integer between 2 and 13 
 print the variable test

@@ -6,6 +6,8 @@ import java.util.Scanner;
 To do
 check types of values
 error handle type when setting from input(auto converts to string)
+if/else statements
+looping
 */
 
 public class Parser

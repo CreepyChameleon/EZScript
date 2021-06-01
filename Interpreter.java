@@ -37,7 +37,32 @@ public class Interpreter {
             //if setting a variable
             if(scriptWords.get(3).toLowerCase().equals("is") && scriptWords.get(4).toLowerCase().equals("equal") && scriptWords.get(5).toLowerCase().equals("to")){
                 //if a random
+                if(scriptWords.get(7).toLowerCase().equals("random")){
+                    //random integer
+                    if(scriptWords.get(8).toLowerCase().equals("integer")){
+                        String vName = scriptWords.get(2);
+                        String vType = "integer";
+                        //bound 1 == sw(10)
+                        int b1 = Integer.parseInt(scriptWords.get(10));
+                        //bound 2 == sw(12)
+                        int b2 = Integer.parseInt(scriptWords.get(12));
 
+                        int rand = (int) (Math.random() * ((b2 - b1)) + 1) + b1;
+                        setVar(vName, vType, String.valueOf(rand));
+                    }
+                    //random double
+                    if(scriptWords.get(8).toLowerCase().equals("double")){
+                        String vName = scriptWords.get(2);
+                        String vType = "double";
+                        //bound 1 == sw(10)
+                        double b1 = Double.parseDouble(scriptWords.get(10));
+                        //bound 2 == sw(12)
+                        double b2 = Double.parseDouble(scriptWords.get(12));
+
+                        double rand = (double) (Math.random() * (b2 - b1)) + b1;
+                        setVar(vName, vType, String.valueOf(rand));
+                    }
+                }
                 //if a String
                 if(scriptWords.get(7).toLowerCase().equals("string")){
                     if(scriptWords.get(8).toLowerCase().equals("input")){
@@ -75,15 +100,15 @@ public class Interpreter {
                         setVar(scriptWords.get(2), scriptWords.get(7), scriptWords.get(8));
                     }
                 }
-                else if(scriptWords.get(7).toLowerCase().equals("float")){
+                else if(scriptWords.get(7).toLowerCase().equals("double")){
                     if(scriptWords.get(8).toLowerCase().equals("input")){
                         String vName = scriptWords.get(2);
-                        String vType = "float";
+                        String vType = "double";
                         for(int i=0;i<9;i++){
                             scriptWords.remove(0);
                         }
                         System.out.println(EZFunctions.BuildString(scriptWords));
-                        float inp = input.nextFloat();
+                        double inp = input.nextDouble();
                         setVar(vName, vType, String.valueOf(inp));
                     }
                     else{
@@ -124,9 +149,9 @@ public class Interpreter {
                 if(getVar(scriptWords.get(3))[0].equals("boolean")){
                     System.out.println(Boolean.parseBoolean(getVar(scriptWords.get(3))[1]));
                 }
-                //if a float
-                if(getVar(scriptWords.get(3))[0].equals("float")){
-                    System.out.println(Float.parseFloat(getVar(scriptWords.get(3))[1]));
+                //if a double
+                if(getVar(scriptWords.get(3))[0].equals("double")){
+                    System.out.println(Double.parseDouble(getVar(scriptWords.get(3))[1]));
                 }
             }
         }
