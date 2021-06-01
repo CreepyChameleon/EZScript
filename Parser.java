@@ -2,6 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/*
+To do
+check types of values
+*/
+
 public class Parser
 {
     public static void main(String[] args){
@@ -18,7 +23,7 @@ public class Parser
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
-                System.out.println("NEW-LINE");
+                //System.out.println("NEW-LINE");
                 System.out.println(data);
                 Interpreter.interpret(data);
             }
