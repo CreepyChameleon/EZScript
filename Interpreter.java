@@ -34,7 +34,17 @@ public class Interpreter {
         
         //if an if statement
         if(scriptWords.get(0).toLowerCase().equals("if")){
-            ;
+            boolean ifCondition = EZFunctions.ifCondition(scriptWords);
+
+            if(ifCondition){
+
+            }
+            else if(!ifCondition){
+
+            }
+            else{
+                ;//exception?
+            }
         }            
         //elif an else statement
         else if(scriptWords.get(0).toLowerCase().equals("else")){
