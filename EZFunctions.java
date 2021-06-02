@@ -11,4 +11,16 @@ public class EZFunctions {
         }
         return newString;
     }
+
+    public static boolean ifCondition(ArrayList<String> wordList){
+        if(wordList.get(2).toLowerCase().equals("variable")){ //variable comparison
+            String obj1Val = Interpreter.globalVariables.get(wordList.get(3))[1];
+            String obj1Type = Interpreter.globalVariables.get(wordList.get(3))[0];
+
+            String obj2Val = Interpreter.globalVariables.get(wordList.get(9))[1];
+            String obj2Type = Interpreter.globalVariables.get(wordList.get(9))[0];
+        }
+        
+        return false;
+    }
 }

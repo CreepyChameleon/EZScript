@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Interpreter {
-    public boolean looping = false;
+    public static boolean looping = false;
+    public static boolean lastLineIfFalse = false;
     public static HashMap<String, String[]> globalVariables = new HashMap<String, String[]>();
     // globalVariables.put(a, b);
     // globalVariables.get(a);
@@ -30,7 +31,19 @@ public class Interpreter {
         // for(int i=0; i<scriptWords.length; i++){
         //     System.out.println(scriptWords[i]);
         // }
+        
+        //if an if statement
+        if(scriptWords.get(0).toLowerCase().equals("if")){
+            ;
+        }            
+        //elif an else statement
+        else if(scriptWords.get(0).toLowerCase().equals("else")){
+            ;
+        }
+        //if not an if or else statement(neccesary to stop searching for an else)
+        else{
 
+        }
 
         //if variable function
         if(scriptWords.get(0).toLowerCase().equals("the") && scriptWords.get(1).toLowerCase().equals("variable")){
@@ -131,8 +144,6 @@ public class Interpreter {
                     }
                 }
             }
-            input.close();
-            return 1;
         }
         //if a print function
         if(scriptWords.get(0).toLowerCase().equals("print")){
@@ -155,7 +166,6 @@ public class Interpreter {
                 }
             }
         }
-
         input.close();
         return 1;
     }
