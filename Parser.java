@@ -6,8 +6,7 @@ import java.util.Scanner;
 To do
 check types of values
 error handle type when setting from input(auto converts to string)
-if/else statements
-looping
+looping/firstrun
 */
 
 public class Parser
@@ -27,8 +26,9 @@ public class Parser
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 //System.out.println("NEW-LINE");
-                System.out.println(data);
+                System.out.println("###" + data);
                 Interpreter.interpret(data);
+                Interpreter.firstRun = false;
             }
             scanner.close();
         } catch (FileNotFoundException e){ //if file does not exist an exception will be thrown

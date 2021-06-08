@@ -4,7 +4,11 @@ import java.util.Scanner;
 
 public class Interpreter {
     public static boolean looping = false;
+    public static boolean firstRun = true;
+
     public static boolean lastLineIfFalse = false;
+    public static boolean lastLineIfStatement = false;
+
     public static HashMap<String, String[]> globalVariables = new HashMap<String, String[]>();
     // globalVariables.put(a, b);
     // globalVariables.get(a);
@@ -28,31 +32,58 @@ public class Interpreter {
         for(String i : sW){
             scriptWords.add(i);
         }
-        // for(int i=0; i<scriptWords.length; i++){
-        //     System.out.println(scriptWords[i]);
-        // }
-        
+
+        //if to only be run on the first pass(while looping through the entire program)
+        if(scriptWords.get(0).toLowerCase().equals("firstrun")){
+            if(firstRun){ //only runs once
+                scriptWords.remove(0);
+            }
+            else{
+                ;
+            }
+        }
+
         //if an if statement
         if(scriptWords.get(0).toLowerCase().equals("if")){
             boolean ifCondition = EZFunctions.ifCondition(scriptWords);
-
             if(ifCondition){
-
+                lastLineIfStatement = true;
+                lastLineIfFalse = false;
+                input.close();
+                return 1;
             }
             else if(!ifCondition){
-
+                lastLineIfStatement = true;
+                lastLineIfFalse = true;
+                input.close();
+                return 1;
             }
             else{
                 ;//exception?
             }
-        }            
+        }
+        else if(scriptWords.get(0).toLowerCase().equals("then")){
+            if(lastLineIfStatement && !lastLineIfFalse){
+                scriptWords.remove(0); //reads input after "then"
+            }
+            else{
+                input.close();
+                return 0;
+            }
+        }
         //elif an else statement
         else if(scriptWords.get(0).toLowerCase().equals("else")){
-            ;
+            if(lastLineIfFalse){ //if the if statement was false
+                lastLineIfStatement = true;
+                lastLineIfFalse = false;
+            }
+            else{
+                lastLineIfStatement = false;
+            }
         }
         //if not an if or else statement(neccesary to stop searching for an else)
         else{
-
+            lastLineIfStatement = false;
         }
 
         //if variable function
@@ -157,6 +188,7 @@ public class Interpreter {
         }
         //if a print function
         if(scriptWords.get(0).toLowerCase().equals("print")){
+            //if printing a var
             if(scriptWords.get(1).toLowerCase().equals("the") && scriptWords.get(2).toLowerCase().equals("variable")){
                 //if a string
                 if(getVar(scriptWords.get(3))[0].equals("string")){
@@ -173,6 +205,24 @@ public class Interpreter {
                 //if a double
                 if(getVar(scriptWords.get(3))[0].equals("double")){
                     System.out.println(Double.parseDouble(getVar(scriptWords.get(3))[1]));
+                }
+            }
+            //if printing a value
+            else if(scriptWords.get(1).toLowerCase().equals("the") && !scriptWords.get(2).toLowerCase().equals("variable")){
+                if(scriptWords.get(2).toLowerCase().equals("string")){
+                    for(int i=0;i<3;i++){
+                        scriptWords.remove(0);
+                    }
+                    System.out.println(EZFunctions.BuildString(scriptWords));
+                }
+                else if(scriptWords.get(2).toLowerCase().equals("integer")){
+                    System.out.println(Integer.parseInt(scriptWords.get(3)));
+                }
+                else if(scriptWords.get(2).toLowerCase().equals("boolean")){
+                    System.out.println(Boolean.parseBoolean(scriptWords.get(3)));
+                }
+                else if(scriptWords.get(2).toLowerCase().equals("double")){
+                    System.out.println(Double.parseDouble(scriptWords.get(3)));
                 }
             }
         }
