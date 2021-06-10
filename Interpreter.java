@@ -10,21 +10,22 @@ public class Interpreter {
     public static boolean lastLineIfStatement = false;
 
     public static HashMap<String, String[]> globalVariables = new HashMap<String, String[]>();
+    public static Scanner input = new Scanner(System.in);
     // globalVariables.put(a, b);
     // globalVariables.get(a);
 
     public static int interpret(String data){
-        Scanner input = new Scanner(System.in);
+        // Scanner input = new Scanner(System.in);
         //if a comment
         if(data.startsWith("//")){
             System.out.println("comment");
-            input.close();
+            ;
             return 0;
         }
         //if an empty line
         if(data.equals("")){
             System.out.println("EMPTY");
-            input.close();
+            ;
             return 0;
         }
         String[] sW = data.split(" "); //split sentence into array of words
@@ -43,19 +44,30 @@ public class Interpreter {
             }
         }
 
+        //if beginning a loop
+        if(scriptWords.get(0).toLowerCase().equals("loop")){
+            looping = true;
+        }
+        //end loop
+        else if(scriptWords.get(0).toLowerCase().equals("stop")){
+            looping = false;
+            ;
+            return 0;
+        }
+
         //if an if statement
         if(scriptWords.get(0).toLowerCase().equals("if")){
             boolean ifCondition = EZFunctions.ifCondition(scriptWords);
             if(ifCondition){
                 lastLineIfStatement = true;
                 lastLineIfFalse = false;
-                input.close();
+                ;
                 return 1;
             }
             else if(!ifCondition){
                 lastLineIfStatement = true;
                 lastLineIfFalse = true;
-                input.close();
+                ;
                 return 1;
             }
             else{
@@ -67,7 +79,7 @@ public class Interpreter {
                 scriptWords.remove(0); //reads input after "then"
             }
             else{
-                input.close();
+                ;
                 return 0;
             }
         }
@@ -146,7 +158,7 @@ public class Interpreter {
                         for(int i=0;i<9;i++){
                             scriptWords.remove(0);
                         }
-                        System.out.println(EZFunctions.BuildString(scriptWords));
+                        System.out.print(EZFunctions.BuildString(scriptWords));
                         int inp = input.nextInt();
                         setVar(vName, vType, String.valueOf(inp));
                     }
@@ -226,7 +238,6 @@ public class Interpreter {
                 }
             }
         }
-        input.close();
         return 1;
     }
 

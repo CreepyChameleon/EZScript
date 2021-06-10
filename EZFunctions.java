@@ -23,7 +23,6 @@ public class EZFunctions {
     } 
 
     public static boolean ifCondition(ArrayList<String> wordList){
-
         //if the variable VAR1 is equal to the variable VAR2
         if(wordList.get(2).toLowerCase().equals("variable")){ //variable comparison
             String obj1Val = Interpreter.globalVariables.get(wordList.get(3))[1];
@@ -44,7 +43,8 @@ public class EZFunctions {
                         }
                     }
                     else{
-                        if(obj1Val == obj2Val){
+                        //temp fix - fix types
+                        if(obj1Val.equals(obj2Val)){
                             return true;
                         }
                         else{

@@ -11,13 +11,16 @@ looping/firstrun
 
 public class Parser
 {
+    public static boolean loop = true;
     public static void main(String[] args){
         boolean boot = true;
-        while(boot == true){
+        while(boot == true && loop == true){
             boot = false;
             File file = new File("testFile.EZ");
             parse(file);
+            Interpreter.firstRun = false;
         }
+        Interpreter.input.close();
     }
 
     public static void parse(File file){
@@ -28,7 +31,7 @@ public class Parser
                 //System.out.println("NEW-LINE");
                 System.out.println("###" + data);
                 Interpreter.interpret(data);
-                Interpreter.firstRun = false;
+                loop = Interpreter.looping;
             }
             scanner.close();
         } catch (FileNotFoundException e){ //if file does not exist an exception will be thrown
