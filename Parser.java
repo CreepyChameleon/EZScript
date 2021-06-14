@@ -6,7 +6,8 @@ import java.util.Scanner;
 To do
 check types of values
 error handle type when setting from input(auto converts to string)
-looping/firstrun
+
+adding and subtracting
 */
 
 public class Parser
@@ -14,7 +15,7 @@ public class Parser
     public static boolean loop = true;
     public static void main(String[] args){
         boolean boot = true;
-        while(boot == true && loop == true){
+        while(boot == true || loop == true){
             boot = false;
             File file = new File("testFile.EZ");
             parse(file);

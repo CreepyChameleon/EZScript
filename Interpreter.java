@@ -24,7 +24,6 @@ public class Interpreter {
         }
         //if an empty line
         if(data.equals("")){
-            System.out.println("EMPTY");
             ;
             return 0;
         }
@@ -47,12 +46,6 @@ public class Interpreter {
         //if beginning a loop
         if(scriptWords.get(0).toLowerCase().equals("loop")){
             looping = true;
-        }
-        //end loop
-        else if(scriptWords.get(0).toLowerCase().equals("stop")){
-            looping = false;
-            ;
-            return 0;
         }
 
         //if an if statement
@@ -96,6 +89,13 @@ public class Interpreter {
         //if not an if or else statement(neccesary to stop searching for an else)
         else{
             lastLineIfStatement = false;
+        }
+
+        //end loop(needs to be after "then" so it can be nested in an if statement)
+        if(scriptWords.get(0).toLowerCase().equals("stop")){
+            looping = false;
+            ;
+            return 0;
         }
 
         //if variable function
@@ -197,6 +197,24 @@ public class Interpreter {
                     }
                 }
             }
+            //if increasing a variable
+            if(scriptWords.get(3).toLowerCase().equals("is") && scriptWords.get(4).toLowerCase().equals("increased") && scriptWords.get(5).toLowerCase().equals("by")){
+                String vName = scriptWords.get(2);
+                String vType = getVar(vName)[0];
+                if(scriptWords.get(7).toLowerCase().equals("integer")){
+                    int vVal = Integer.parseInt(getVar(vName)[1]);
+                    int newVal = Integer.parseInt(getVar(scriptWords.get(8)));
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("float")){
+                    float vVal = Float.parseFloat(getVar(vName)[1]);
+                    float newVal = Float.parseFloat(getVar(scriptWords.get(8)));
+                }   
+            }
+            //if decreasing a variable
+
+            //if multiplying a variable
+
+            //if dividing a variable
         }
         //if a print function
         if(scriptWords.get(0).toLowerCase().equals("print")){

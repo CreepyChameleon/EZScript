@@ -1,0 +1,9 @@
+loop
+firstrun the variable rand is equal to the random integer from 1 to 5
+
+the variable guess is equal to the integer input "Guess a number between 1 and 5: "
+if the variable guess is equal to the variable rand
+then print the string "Congrats that was the correct number!"
+then stop
+else
+then print the string "Sorry, that was not the correct number."

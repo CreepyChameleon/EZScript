@@ -1,9 +1,7 @@
-the variable rand is equal to the random integer from 1 to 5
-print the variable rand
+the variable test is equal to the integer 4
 
+print the variable test
 
-the variable guess is equal to the integer input "Guess a number between 1 and 5: "
-if the variable guess is equal to the variable rand
-then print the string "true"
-else
-then print the string "false"
+the variable test is increased by the integer 2
+
+print the variable test
