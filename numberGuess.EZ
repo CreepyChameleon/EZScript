@@ -1,9 +1,18 @@
 loop
 firstrun the variable rand is equal to the random integer from 1 to 5
+firstrun the variable count is equal to the integer 0
 
 the variable guess is equal to the integer input "Guess a number between 1 and 5: "
+
+the variable count is increased by the integer 1
+
 if the variable guess is equal to the variable rand
-then print the string "Congrats that was the correct number!"
+then print newline
+then println the string "Congrats that was the correct number!"
+then print the string "It took you "
+then print the variable count
+then print the string " tries"
 then stop
+
 else
-then print the string "Sorry, that was not the correct number."
+then println the string "Sorry, that was not the correct number."

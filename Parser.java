@@ -17,7 +17,7 @@ public class Parser
         boolean boot = true;
         while(boot == true || loop == true){
             boot = false;
-            File file = new File("testFile.EZ");
+            File file = new File("numberGuess.EZ");
             parse(file);
             Interpreter.firstRun = false;
         }
@@ -30,7 +30,7 @@ public class Parser
             while (scanner.hasNextLine()){
                 String data = scanner.nextLine();
                 //System.out.println("NEW-LINE");
-                System.out.println("###" + data);
+                //System.out.println("###" + data);
                 Interpreter.interpret(data);
                 loop = Interpreter.looping;
             }

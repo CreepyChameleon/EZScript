@@ -203,23 +203,69 @@ public class Interpreter {
                 String vType = getVar(vName)[0];
                 if(scriptWords.get(7).toLowerCase().equals("integer")){
                     int vVal = Integer.parseInt(getVar(vName)[1]);
-                    int newVal = Integer.parseInt(getVar(scriptWords.get(8)));
+                    int newVal = vVal + Integer.parseInt(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
                 }
                 else if(scriptWords.get(7).toLowerCase().equals("float")){
                     float vVal = Float.parseFloat(getVar(vName)[1]);
-                    float newVal = Float.parseFloat(getVar(scriptWords.get(8)));
+                    float newVal = vVal + Float.parseFloat(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
                 }   
             }
             //if decreasing a variable
-
+            else if(scriptWords.get(3).toLowerCase().equals("is") && scriptWords.get(4).toLowerCase().equals("decreased") && scriptWords.get(5).toLowerCase().equals("by")){
+                String vName = scriptWords.get(2);
+                String vType = getVar(vName)[0];
+                if(scriptWords.get(7).toLowerCase().equals("integer")){
+                    int vVal = Integer.parseInt(getVar(vName)[1]);
+                    int newVal = vVal - Integer.parseInt(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("float")){
+                    float vVal = Float.parseFloat(getVar(vName)[1]);
+                    float newVal = vVal - Float.parseFloat(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
+                }   
+            }
             //if multiplying a variable
-
+            else if(scriptWords.get(3).toLowerCase().equals("is") && scriptWords.get(4).toLowerCase().equals("multiplied") && scriptWords.get(5).toLowerCase().equals("by")){
+                String vName = scriptWords.get(2);
+                String vType = getVar(vName)[0];
+                if(scriptWords.get(7).toLowerCase().equals("integer")){
+                    int vVal = Integer.parseInt(getVar(vName)[1]);
+                    int newVal = vVal * Integer.parseInt(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("float")){
+                    float vVal = Float.parseFloat(getVar(vName)[1]);
+                    float newVal = vVal * Float.parseFloat(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
+                }   
+            }
             //if dividing a variable
+            else if(scriptWords.get(3).toLowerCase().equals("is") && scriptWords.get(4).toLowerCase().equals("divided") && scriptWords.get(5).toLowerCase().equals("by")){
+                String vName = scriptWords.get(2);
+                String vType = getVar(vName)[0];
+                if(scriptWords.get(7).toLowerCase().equals("integer")){
+                    int vVal = Integer.parseInt(getVar(vName)[1]);
+                    int newVal = vVal / Integer.parseInt(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
+                }
+                else if(scriptWords.get(7).toLowerCase().equals("float")){
+                    float vVal = Float.parseFloat(getVar(vName)[1]);
+                    float newVal = vVal / Float.parseFloat(scriptWords.get(8));
+                    setVar(vName, vType, String.valueOf(newVal));
+                }   
+            }
         }
-        //if a print function
-        if(scriptWords.get(0).toLowerCase().equals("print")){
+        //if a println function
+        if(scriptWords.get(0).toLowerCase().equals("println")){
+            //if a newline
+            if(scriptWords.get(1).toLowerCase().equals("newline")){
+                System.out.println("");
+            }      
             //if printing a var
-            if(scriptWords.get(1).toLowerCase().equals("the") && scriptWords.get(2).toLowerCase().equals("variable")){
+            else if(scriptWords.get(1).toLowerCase().equals("the") && scriptWords.get(2).toLowerCase().equals("variable")){
                 //if a string
                 if(getVar(scriptWords.get(3))[0].equals("string")){
                     System.out.println(getVar(scriptWords.get(3))[1]);
@@ -253,6 +299,50 @@ public class Interpreter {
                 }
                 else if(scriptWords.get(2).toLowerCase().equals("double")){
                     System.out.println(Double.parseDouble(scriptWords.get(3)));
+                }
+            }
+        }
+        //if print
+        if(scriptWords.get(0).toLowerCase().equals("print")){
+            //if a newline
+            if(scriptWords.get(1).toLowerCase().equals("newline")){
+                System.out.println("");
+            }      
+            //if printing a var
+            else if(scriptWords.get(1).toLowerCase().equals("the") && scriptWords.get(2).toLowerCase().equals("variable")){
+                //if a string
+                if(getVar(scriptWords.get(3))[0].equals("string")){
+                    System.out.print(getVar(scriptWords.get(3))[1]);
+                }
+                //if an integer
+                if(getVar(scriptWords.get(3))[0].equals("integer")){
+                    System.out.print(Integer.parseInt(getVar(scriptWords.get(3))[1]));
+                }
+                //if a boolean
+                if(getVar(scriptWords.get(3))[0].equals("boolean")){
+                    System.out.print(Boolean.parseBoolean(getVar(scriptWords.get(3))[1]));
+                }
+                //if a double
+                if(getVar(scriptWords.get(3))[0].equals("double")){
+                    System.out.print(Double.parseDouble(getVar(scriptWords.get(3))[1]));
+                }
+            }
+            //if printing a value
+            else if(scriptWords.get(1).toLowerCase().equals("the") && !scriptWords.get(2).toLowerCase().equals("variable")){
+                if(scriptWords.get(2).toLowerCase().equals("string")){
+                    for(int i=0;i<3;i++){
+                        scriptWords.remove(0);
+                    }
+                    System.out.print(EZFunctions.BuildString(scriptWords));
+                }
+                else if(scriptWords.get(2).toLowerCase().equals("integer")){
+                    System.out.print(Integer.parseInt(scriptWords.get(3)));
+                }
+                else if(scriptWords.get(2).toLowerCase().equals("boolean")){
+                    System.out.print(Boolean.parseBoolean(scriptWords.get(3)));
+                }
+                else if(scriptWords.get(2).toLowerCase().equals("double")){
+                    System.out.print(Double.parseDouble(scriptWords.get(3)));
                 }
             }
         }
